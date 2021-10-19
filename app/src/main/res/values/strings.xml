@@ -12,6 +12,9 @@
     <string name="map_mode_hybrid">Спутник + Дороги</string>
     <string name="map_mode_terrain">Рельеф</string>
 
+    <!-- Map Style -->
+    <string name="map_style_day">Дневной режим</string>
+    <string name="map_style_night">Ночной режим</string>
     <!-- </Tool Bar>  -->
 
 </resources>

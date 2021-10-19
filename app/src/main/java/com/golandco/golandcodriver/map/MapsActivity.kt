@@ -2,7 +2,6 @@ package com.golandco.golandcodriver.map
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
@@ -18,9 +17,7 @@ import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
-import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
-import java.lang.Exception
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -68,24 +65,33 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        val button = binding.layoutNavigation.toolbarContent.toolbar.menu.findItem(R.id.item_map_mode)
+        val buttonMode = binding.layoutNavigation.toolbarContent.toolbar.menu.findItem(R.id.item_map_mode)
+        val buttonStyle = binding.layoutNavigation.toolbarContent.toolbar.menu.findItem(R.id.item_map_style)
 
         when(item.itemId) {
             R.id.normal_map -> {
                 map.mapType = GoogleMap.MAP_TYPE_NORMAL
-                button.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_day)
+                buttonMode.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_day)
+                buttonStyle.isVisible = true
+                mapStylesManager.getCurrentStyle(buttonStyle, buttonMode)
             }
             R.id.hybrid_map -> {
                 map.mapType = GoogleMap.MAP_TYPE_HYBRID
-                button.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_night)
+                buttonMode.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_night)
+                buttonStyle.isVisible = false
             }
             R.id.satellite_map -> {
                 map.mapType = GoogleMap.MAP_TYPE_SATELLITE
-                button.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_night)
+                buttonMode.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_night)
+                buttonStyle.isVisible = false
             }
             R.id.terrain_map -> {
                 map.mapType = GoogleMap.MAP_TYPE_TERRAIN
-                button.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_day)
+                buttonMode.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_day)
+                buttonStyle.isVisible = false
+            }
+            R.id.item_map_style -> {
+                mapStylesManager.setNighDayStyle(map, buttonStyle, buttonMode)
             }
         }
         return true

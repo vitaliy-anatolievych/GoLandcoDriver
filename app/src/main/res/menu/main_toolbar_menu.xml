@@ -2,6 +2,14 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
+
+
+    <item
+        android:id="@+id/item_map_style"
+        android:title="@string/map_style_day"
+        android:icon="@drawable/ic_map_style_day"
+        app:showAsAction="ifRoom"/>
+
     <item
         android:id="@+id/item_map_mode"
         android:title="@string/choose_map_mode"
@@ -31,4 +39,5 @@
                 app:showAsAction="never"/>
         </menu>
     </item>
+
 </menu>
