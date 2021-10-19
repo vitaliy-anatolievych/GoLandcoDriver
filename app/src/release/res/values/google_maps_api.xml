@@ -13,8 +13,10 @@
 
     https://developers.google.com/maps/documentation/android/signup
 
+    // SHA1: 0D:9C:9C:04:BA:7B:57:D3:36:E0:B4:6A:83:E9:0D:5A:C2:58:C2:4D
+
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
     -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">YOUR_KEY_HERE</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyC3DLJsRwg-mFIPgkHdgmMf-oyDCHQlATw</string>
 </resources>

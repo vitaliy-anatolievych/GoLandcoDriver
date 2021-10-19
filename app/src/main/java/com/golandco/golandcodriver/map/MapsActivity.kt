@@ -44,6 +44,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val skyMall = LatLng(50.49456747309024, 30.560272889957194)
         map.addMarker(MarkerOptions().position(skyMall).title("Marker in SkyMall"))
         map.moveCamera(CameraUpdateFactory.newLatLng(skyMall))
-        map.animateCamera(CameraUpdateFactory.zoomTo(15f), 1000, null)
+        map.animateCamera(CameraUpdateFactory.newLatLngZoom(skyMall, 16f))
     }
 }
