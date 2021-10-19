@@ -2,6 +2,9 @@ package com.golandco.golandcodriver.map
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
+import androidx.core.content.ContextCompat
 import com.golandco.golandcodriver.R
 import com.golandco.golandcodriver.databinding.ActivityMapsBinding
 
@@ -23,21 +26,14 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        // Obtain the SupportMapFragment and get notified when the map is ready to be used.
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
+        setSupportActionBar(binding.layoutNavigation.toolbarContent.toolbar)
     }
 
-    /**
-     * Manipulates the map once available.
-     * This callback is triggered when the map is ready to be used.
-     * This is where we can add markers or lines, add listeners or move the camera. In this case,
-     * we just add a marker near Sydney, Australia.
-     * If Google Play services is not installed on the device, the user will be prompted to install
-     * it inside the SupportMapFragment. This method will only be triggered once the user has
-     * installed Google Play services and returned to the app.
-     */
+
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
 
@@ -45,5 +41,37 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map.addMarker(MarkerOptions().position(skyMall).title("Marker in SkyMall"))
         map.moveCamera(CameraUpdateFactory.newLatLng(skyMall))
         map.animateCamera(CameraUpdateFactory.newLatLngZoom(skyMall, 16f))
+        map.uiSettings.apply {
+            this.isMapToolbarEnabled = false
+        }
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_toolbar_menu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        val button = binding.layoutNavigation.toolbarContent.toolbar.menu.findItem(R.id.item_map_mode)
+
+        when(item.itemId) {
+            R.id.normal_map -> {
+                map.mapType = GoogleMap.MAP_TYPE_NORMAL
+                button.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_day)
+            }
+            R.id.hybrid_map -> {
+                map.mapType = GoogleMap.MAP_TYPE_HYBRID
+                button.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_night)
+            }
+            R.id.satellite_map -> {
+                map.mapType = GoogleMap.MAP_TYPE_SATELLITE
+                button.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_night)
+            }
+            R.id.terrain_map -> {
+                map.mapType = GoogleMap.MAP_TYPE_TERRAIN
+                button.icon = ContextCompat.getDrawable(this, R.drawable.ic_map_mode_day)
+            }
+        }
+        return true
     }
 }

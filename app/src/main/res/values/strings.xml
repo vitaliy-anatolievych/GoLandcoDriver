@@ -1,4 +1,17 @@
 <resources>
-    <string name="app_name">GoLandcoDriver</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="app_name">GoLandCoDriver</string>
+    <string name="title_activity_maps"></string>
+
+
+    <!-- <Tool Bar>  -->
+
+    <!-- Map Mode -->
+    <string name="choose_map_mode">Выбрать стиль карты</string>
+    <string name="map_mode_normal">По умолчанию</string>
+    <string name="map_mode_satellite">Спутник</string>
+    <string name="map_mode_hybrid">Спутник + Дороги</string>
+    <string name="map_mode_terrain">Рельеф</string>
+
+    <!-- </Tool Bar>  -->
+
 </resources>
