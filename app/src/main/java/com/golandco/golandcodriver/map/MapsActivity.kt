@@ -5,9 +5,11 @@ import android.os.Bundle
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.SearchView
 import androidx.core.content.ContextCompat
 import com.golandco.golandcodriver.R
 import com.golandco.golandcodriver.databinding.ActivityMapsBinding
+import com.golandco.golandcodriver.managers.mapsearch.MapSearchManager
 import com.golandco.golandcodriver.managers.mapstyle.MapStyleManager
 import com.golandco.golandcodriver.managers.mapstyle.MapStyles
 
@@ -23,9 +25,11 @@ import java.lang.Exception
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
+    private lateinit var searchView: SearchView
     private lateinit var binding: ActivityMapsBinding
 
     private val mapStylesManager = MapStyleManager(this)
+    private lateinit var mapSearchManager: MapSearchManager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -43,6 +47,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
+        searchView = binding.layoutNavigation.toolbarContent.searchViewLocation
 
         val skyMall = LatLng(50.49456747309024, 30.560272889957194)
         map.addMarker(MarkerOptions().position(skyMall).title("Marker in SkyMall"))
@@ -52,6 +57,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
             this.isMapToolbarEnabled = false
         }
         mapStylesManager.setMapStyle(map, MapStyles.STYLE_RETRO)
+
+        mapSearchManager = MapSearchManager(this, map, searchView)
+        binding.layoutNavigation.toolbarContent.searchViewLocation.setOnQueryTextListener(mapSearchManager)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -83,3 +91,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         return true
     }
 }
+
+/**
+ * Некоторые устройства не будут поддерживать слишком близкое увеличение карты, есть функция для проверки getMinZoomLevel() в GoogleMap объекте.
+ * Кратность Zoom:
+ * 5 - Континент
+ * 10 - город
+ * 15 - улицы вокруг
+ * 20 - здания вокруг
+ */
