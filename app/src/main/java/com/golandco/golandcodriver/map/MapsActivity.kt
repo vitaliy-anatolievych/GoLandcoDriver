@@ -2,23 +2,30 @@ package com.golandco.golandcodriver.map
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import androidx.core.content.ContextCompat
 import com.golandco.golandcodriver.R
 import com.golandco.golandcodriver.databinding.ActivityMapsBinding
+import com.golandco.golandcodriver.managers.mapstyle.MapStyleManager
+import com.golandco.golandcodriver.managers.mapstyle.MapStyles
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.MapStyleOptions
 import com.google.android.gms.maps.model.MarkerOptions
+import java.lang.Exception
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var map: GoogleMap
     private lateinit var binding: ActivityMapsBinding
+
+    private val mapStylesManager = MapStyleManager(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -44,6 +51,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         map.uiSettings.apply {
             this.isMapToolbarEnabled = false
         }
+        mapStylesManager.setMapStyle(map, MapStyles.STYLE_RETRO)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
