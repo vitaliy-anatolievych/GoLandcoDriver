@@ -15,6 +15,25 @@
     <!-- Map Style -->
     <string name="map_style_day">Дневной режим</string>
     <string name="map_style_night">Ночной режим</string>
+
+    <!-- Drawer Layout -->
+    <string name="drawer_menu_open">Открыть меню</string>
+    <string name="drawer_menu_close">Закрыть меню</string>
+
     <!-- </Tool Bar>  -->
 
+
+    <!-- <Drawer> -->
+
+    <!-- <Header> -->
+    <string name="header_guest_email_text">Войдите или зарегистрируйтесь</string>
+    <!-- </Header> -->
+
+    <!-- <Menu> -->
+    <string name="login_drawer">Аккаунт</string>
+    <string name="user_login_in">Вход</string>
+    <string name="user_sign_up">Регистрация</string>
+    <string name="user_login_out">Выход</string>
+    <!-- </Menu> -->
+    <!-- </Drawer> -->
 </resources>

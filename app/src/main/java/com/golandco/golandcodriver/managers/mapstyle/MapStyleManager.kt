@@ -3,6 +3,7 @@ package com.golandco.golandcodriver.managers.mapstyle
 import android.content.Context
 import android.util.Log
 import android.view.MenuItem
+import android.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.golandco.golandcodriver.R
 import com.google.android.gms.maps.GoogleMap
@@ -38,11 +39,14 @@ class MapStyleManager(private val context: Context) {
         }
     }
 
-    fun getCurrentStyle(buttonStyle: MenuItem, buttonMode: MenuItem) {
+    // плохой метод, требует постоянного вмешательства, позже придумать лучшее решение
+    fun getCurrentStyle(buttonMode: MenuItem?, toolbar: androidx.appcompat.widget.Toolbar?) {
         if (this.currentMapStyle == MapStyles.STYLE_RETRO) {
-            buttonMode.icon = ContextCompat.getDrawable(context, R.drawable.ic_map_mode_day)
+            buttonMode?.icon = ContextCompat.getDrawable(context, R.drawable.ic_map_mode_day)
+            toolbar?.setNavigationIcon(R.drawable.ic_drawer_menu_button_day)
         } else if (this.currentMapStyle == MapStyles.STYLE_NIGHT) {
-            buttonMode.icon = ContextCompat.getDrawable(context, R.drawable.ic_map_mode_night)
+            buttonMode?.icon = ContextCompat.getDrawable(context, R.drawable.ic_map_mode_night)
+            toolbar?.setNavigationIcon(R.drawable.ic_drawer_menu_button_night)
         }
     }
 }
