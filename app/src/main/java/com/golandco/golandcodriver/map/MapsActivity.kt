@@ -2,19 +2,20 @@ package com.golandco.golandcodriver.map
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.Gravity
+import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.SearchView
-import android.widget.Toast
 import androidx.appcompat.app.ActionBarDrawerToggle
 import androidx.core.content.ContextCompat
 import androidx.core.view.GravityCompat
 import com.golandco.golandcodriver.R
 import com.golandco.golandcodriver.databinding.ActivityMapsBinding
+import com.golandco.golandcodriver.managers.mapsearch.AutocompleteSearchManager
 import com.golandco.golandcodriver.managers.mapsearch.MapSearchManager
 import com.golandco.golandcodriver.managers.mapstyle.MapStyleManager
 import com.golandco.golandcodriver.managers.mapstyle.MapStyles
+import com.google.android.gms.common.api.Status
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
@@ -22,6 +23,11 @@ import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.android.libraries.places.api.Places
+import com.google.android.libraries.places.api.model.Place
+import com.google.android.libraries.places.api.model.TypeFilter
+import com.google.android.libraries.places.widget.AutocompleteSupportFragment
+import com.google.android.libraries.places.widget.listener.PlaceSelectionListener
 
 class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -30,17 +36,22 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private lateinit var binding: ActivityMapsBinding
 
     private val mapStylesManager = MapStyleManager(this)
-    private lateinit var mapSearchManager: MapSearchManager
+    private lateinit var autocompleteSearchManager: AutocompleteSearchManager
+
+//    private lateinit var mapSearchManager: MapSearchManager
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
         binding = ActivityMapsBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        autocompleteSearchManager = AutocompleteSearchManager(this)
 
         val mapFragment = supportFragmentManager
             .findFragmentById(R.id.map) as SupportMapFragment
         mapFragment.getMapAsync(this)
+
 
         setSupportActionBar(binding.layoutNavigation.toolbarContent.toolbar)
         initDrawerMenu()
@@ -49,7 +60,7 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     override fun onMapReady(googleMap: GoogleMap) {
         map = googleMap
-        searchView = binding.layoutNavigation.toolbarContent.searchViewLocation
+//        searchView = binding.layoutNavigation.toolbarContent.searchViewLocation
 
         val skyMall = LatLng(50.49456747309024, 30.560272889957194)
         map.addMarker(MarkerOptions().position(skyMall).title("Marker in SkyMall"))
@@ -60,8 +71,11 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         }
         mapStylesManager.setMapStyle(map, MapStyles.STYLE_RETRO)
 
-        mapSearchManager = MapSearchManager(this, map, searchView)
-        binding.layoutNavigation.toolbarContent.searchViewLocation.setOnQueryTextListener(mapSearchManager)
+        autocompleteSearchManager.setupPlacesAutoComplete(map, supportFragmentManager)
+
+//        Отключён SearchView, взамен ему AutocompleteSupportFragment
+//        mapSearchManager = MapSearchManager(this, map, searchView)
+//        binding.layoutNavigation.toolbarContent.searchViewLocation.setOnQueryTextListener(mapSearchManager)
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -129,4 +143,9 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
  * 10 - город
  * 15 - улицы вокруг
  * 20 - здания вокруг
+ *
+ *
+ * Show Buildings in 3D on the Map - необходимо для навигации по маршруту
+ * Change ZOOM levels and Set Max/Min ZOOM level - необходим для блокировки изменения зума, а так же для перехода
+ *
  */
