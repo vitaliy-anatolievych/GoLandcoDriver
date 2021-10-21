@@ -3,7 +3,6 @@ package com.golandco.golandcodriver.managers.mapstyle
 import android.content.Context
 import android.util.Log
 import android.view.MenuItem
-import android.widget.Toolbar
 import androidx.core.content.ContextCompat
 import com.golandco.golandcodriver.R
 import com.google.android.gms.maps.GoogleMap
@@ -12,7 +11,7 @@ import java.lang.Exception
 
 class MapStyleManager(private val context: Context) {
 
-    var currentMapStyle: Int = 0
+    private var currentMapStyle: Int = 0
 
     fun setMapStyle(googleMap: GoogleMap, mapStyle: Int) {
         try {
