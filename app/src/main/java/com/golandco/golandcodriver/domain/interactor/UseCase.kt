@@ -5,6 +5,12 @@ import com.golandco.golandcodriver.domain.exception.Failure
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 
+/**
+ * Для выполнения задач в фоновом или ui потоке.
+ * Пример:
+ * Регистрация – задача, одна часть которой выполняется в фоновом потоке(API запрос),
+ * а другая – в UI потоке(вывод тоста о успехе или ошибке).
+ */
 abstract class UseCase<out Type, in Params> {
     var backgroundContext: CoroutineContext = Dispatchers.IO
     var foregroundContext: CoroutineContext = Dispatchers.Main

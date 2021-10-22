@@ -1,10 +1,20 @@
 package com.golandco.golandcodriver.domain.exception
 
+/**
+ *   Для передачи одного из двух возможных типов данных, неизвестного в момент компиляции,
+ *   но известного в момент выполнения(кот Шредингера).
+ *   Пример:
+ *   Сетевой запрос может возвращать как данные, так и ошибку. Either компонует их,
+ *   что помогает обработать их вместе с меньшим количеством кода.
+ *
+ *   @L - Для ошибок [Failure]
+ *   @R - Для данных [AccountEntity]
+ */
 sealed class Either<out L, out R> {
     /** * Ошибка [Failure]. */
     data class Left<out L>(val a: L) : Either<L, Nothing>()
 
-    /** * Успех [Right] */
+    /** * Успех [AccountEntity] */
     data class Right<out R>(val b: R) : Either<Nothing, R>()
 
     val isRight get() = this is Right<R>
