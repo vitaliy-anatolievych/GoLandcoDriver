@@ -1,4 +1,4 @@
-package com.golandco.golandcodriver.map
+package com.golandco.golandcodriver.ui.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -112,6 +112,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         toggle.isDrawerIndicatorEnabled = false
         toolbar.setNavigationIcon(R.drawable.ic_drawer_menu_button_day)
         toggle.syncState()
+
+
 
         toolbar.setNavigationOnClickListener {
             binding.drawerLayout.openDrawer(GravityCompat.START)

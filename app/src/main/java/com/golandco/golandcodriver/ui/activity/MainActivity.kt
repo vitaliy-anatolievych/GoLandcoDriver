@@ -1,10 +1,9 @@
-package com.golandco.golandcodriver
+package com.golandco.golandcodriver.ui.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.golandco.golandcodriver.databinding.ActivityMainBinding
-import com.golandco.golandcodriver.map.MapsActivity
 
 class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
