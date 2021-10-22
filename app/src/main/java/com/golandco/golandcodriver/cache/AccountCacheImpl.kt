@@ -6,6 +6,9 @@ import com.golandco.golandcodriver.domain.exception.Failure
 import com.golandco.golandcodriver.domain.type.None
 import javax.inject.Inject
 
+/**
+ * Для взаимодействия с аккаунтом в бд.
+ */
 class AccountCacheImpl @Inject constructor(private val prefsManager: SharedPrefsManager): AccountCache {
 
     override fun saveToken(token: String): Either<Failure, None> {
